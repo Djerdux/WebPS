@@ -3,7 +3,7 @@ from random import shuffle, randint, seed
 
 def magic(id, data: str):
     
-    print(id)
+    # print(id)
     id = id.split()
 
 

@@ -29,7 +29,10 @@ if max_id == None:
         max_id = 0
 
 def get_last_id_p1():
-    return cur.execute("SELECT max(id) FROM data").fetchone()[0] + 1
+    try:
+        return cur.execute("SELECT max(id) FROM data").fetchone()[0] + 1
+    except:
+        return 1
 
 def get_all_data():
 

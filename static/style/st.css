@@ -39,3 +39,12 @@
     
     /* visibility: visible; */
 }
+
+.dangershow{
+    border: 0px solid red;
+    border-radius: 8px;
+    background-color: lightpink;
+    padding-left: 5px;
+    color: gray;
+    
+}

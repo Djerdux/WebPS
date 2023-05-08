@@ -7,12 +7,14 @@ app = Flask(__name__)
 
 # print(data)
 
+
 # k = 'kentpol'
 # k = sha512(''.join(k).encode('utf-8')).hexdigest()
 # key = k
 
 table = []
 gkey = ''
+validate=''
 
 def make_a_table(key):
     global table
@@ -33,22 +35,37 @@ def make_a_table(key):
 @app.route("/data", methods=['post', 'get'])
 def index():
     global table
+    global validate
 
     if gkey != '':
         make_a_table(gkey)
+    
     if request.method == 'POST':
-        
+        print("Я зашедл в пост анальных пенетраторов")
+        # try:
         op = list(request.form.keys())[-1]
-        print(op)
-
+        # except:
+        #     print("Ушел в ксепт назуй гнида ебаная")
+        #     print(request.method)
+        #     print(request.form.keys())
+        #     exit()
+        # print(op)
+        # print(op)
         match op:
             case "inpmaspas":
+                print("pushed")
                 return redirect("http://127.0.0.1:5000/")
             
             case "add":
                 res = request.form.get("res")
                 mail = request.form.get("mail")
                 log = request.form.get("login")
+
+                if any(len(s) == 0 for s in (res, mail, log)):
+                    validate="<h6 class='dangershow'>Вы заполнили не все поля</h6>"
+                    return redirect("http://127.0.0.1:5000/data")
+                else:
+                    validate=""
 
                 # request.form.setdefault('res')
 
@@ -62,9 +79,12 @@ def index():
             
             case "delid":
                 id = request.form.get("delid")
-                print(id)
+                delete_from_base(id)
+                make_a_table(gkey)
+
+                return redirect("http://127.0.0.1:5000/data")
     else:
-        return render_template('index.html', title='О Flask', rows=table)
+        return render_template('index.html', title='О Flask', rows=table, validate=validate)
 
 
 @app.route("/", methods=['post', 'get'])
