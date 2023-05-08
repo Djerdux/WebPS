@@ -1,0 +1,92 @@
+from flask import Flask, render_template, request, redirect
+from db import *
+from algo import magic
+from hashlib import sha512
+
+app = Flask(__name__)
+
+# print(data)
+
+# k = 'kentpol'
+# k = sha512(''.join(k).encode('utf-8')).hexdigest()
+# key = k
+
+table = []
+gkey = ''
+
+def make_a_table(key):
+    global table
+    table = []
+    data = get_all_data()
+    for row in data:
+        n_row = []
+        for el in row[:len(row)-1]:
+            n_row.append(el)
+        n_row[0] = str(n_row[0])
+        # print(n_row[0]+'')
+        n_row.append(magic(n_row[0]+' '+key, n_row[1]+n_row[2]+n_row[3]))
+        table.append(n_row+[''])
+
+
+# print(table)
+
+@app.route("/data", methods=['post', 'get'])
+def index():
+    global table
+
+    if gkey != '':
+        make_a_table(gkey)
+    if request.method == 'POST':
+        
+        op = list(request.form.keys())[-1]
+        print(op)
+
+        match op:
+            case "inpmaspas":
+                return redirect("http://127.0.0.1:5000/")
+            
+            case "add":
+                res = request.form.get("res")
+                mail = request.form.get("mail")
+                log = request.form.get("login")
+
+                # request.form.setdefault('res')
+
+                add_to_base(get_last_id_p1(), (res, mail, log, ''))
+                return redirect("http://127.0.0.1:5000/data")
+
+            case "del":
+                id = request.form.get("id")
+                delete_from_base(int(id))
+                return redirect("http://127.0.0.1:5000/data")
+            
+            case "delid":
+                id = request.form.get("delid")
+                print(id)
+    else:
+        return render_template('index.html', title='О Flask', rows=table)
+
+
+@app.route("/", methods=['post', 'get'])
+def inputkey():
+    global gkey
+    if request.method == 'POST':
+        maspas = request.form.get('maspas')
+        k = sha512(''.join(maspas).encode('utf-8')).hexdigest()
+
+        del maspas
+        gkey = k
+        make_a_table(gkey)
+
+        return redirect("http://127.0.0.1:5000/data")
+        
+    return render_template('inputform.html')
+
+@app.route("/add", methods=['post'])
+def addrec():
+    pass
+
+
+
+if __name__ == "__main__":
+    app.run(debug=True)

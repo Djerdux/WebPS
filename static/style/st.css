@@ -1,0 +1,41 @@
+#tab{
+    margin-left: 50%;
+    border-radius: 2%;
+}
+
+.di{
+    background-color: aqua;
+    width: 100px;
+    height: 100px;
+}
+
+
+.moe{
+    border: 0px solid transparent;
+}
+
+.moe:hover{
+    border: 0px solid transparent;
+}
+
+
+.hbtn{
+    width: 40px;
+    height: 34px;
+    color: white;
+    background-color: transparent;
+    border: 0px solid white;
+    border-radius: 3px;
+    margin-right: 2%;
+    transition-duration: 250ms;
+    /* visibility: hidden; */
+}
+
+.hbtn:hover{
+    color: palevioletred;
+    /* font-size: 2rem; */
+    transition-duration: 250ms;
+    border: 2px solid rgb(255, 71, 71);
+    
+    /* visibility: visible; */
+}
