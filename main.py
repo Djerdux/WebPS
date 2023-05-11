@@ -41,11 +41,9 @@ def index():
         make_a_table(gkey)
     
     if request.method == 'POST':
-        # print("Я зашедл в пост анальных пенетраторов")
         # try:
         op = list(request.form.keys())[-1]
         # except:
-        #     print("Ушел в ксепт назуй гнида ебаная")
         #     print(request.method)
         #     print(request.form.keys())
         #     exit()
