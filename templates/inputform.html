@@ -13,6 +13,22 @@
 	    <label for="maspas">Master password</label> <br>
 	    <input type="password" name="maspas">
     </p>
+
+    {% if key == 'first' %}
+    <p>
+        Please, type your master password, to secure your data <br>
+        
+        Since this is the first time, this message will not appear in the future. 
+    </p>
+    {% endif %}
+
+    {% if key == 'wrong' %}
+    <p>
+        You typed wrong maspas
+    </p>
+    {% endif %}
+
+
 	<p>
 	    <input type="submit">
     </p>

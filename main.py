@@ -77,19 +77,29 @@ def inputkey():
     global gkey
     if request.method == 'POST':
         maspas = request.form.get('maspas')
-        k = sha512(''.join(maspas).encode('utf-8')).hexdigest()
+
+        print(get_key())
+        if get_key() in ('0', 0):
+            k = sha512(''.join(maspas).encode('utf-8')).hexdigest()
+            update_key(k)
+            print(k)
+
+        elif sha512(''.join(maspas).encode('utf-8')).hexdigest() != get_key():
+            return render_template('inputform.html', key="wrong")
+        else:
+            k = get_key()
 
         del maspas
         gkey = k
         make_a_table(gkey)
 
         return redirect("http://127.0.0.1:5000/data")
-        
-    return render_template('inputform.html')
+    print(get_key())    
+    if get_key() in ('0', 0):
+        return render_template('inputform.html', key="first")
+    else:
+        return render_template('inputform.html', key="0")
 
-@app.route("/add", methods=['post'])
-def addrec():
-    pass
 
 
 
