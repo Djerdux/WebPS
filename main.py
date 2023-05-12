@@ -5,12 +5,6 @@ from hashlib import sha512
 
 app = Flask(__name__)
 
-# print(data)
-
-
-# k = 'kentpol'
-# k = sha512(''.join(k).encode('utf-8')).hexdigest()
-# key = k
 
 table = []
 gkey = ''
@@ -30,7 +24,6 @@ def make_a_table(key):
         table.append(n_row+[''])
 
 
-# print(table)
 
 @app.route("/data", methods=['post', 'get'])
 def index():
@@ -41,14 +34,9 @@ def index():
         make_a_table(gkey)
     
     if request.method == 'POST':
-        # try:
+
         op = list(request.form.keys())[-1]
-        # except:
-        #     print(request.method)
-        #     print(request.form.keys())
-        #     exit()
-        # print(op)
-        # print(op)
+
         match op:
             case "inpmaspas":
                 print("pushed")
@@ -65,7 +53,6 @@ def index():
                 else:
                     validate=""
 
-                # request.form.setdefault('res')
 
                 add_to_base(get_last_id_p1(), (res, mail, log, ''))
                 return redirect("http://127.0.0.1:5000/data")
