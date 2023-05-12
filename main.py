@@ -78,7 +78,6 @@ def inputkey():
     if request.method == 'POST':
         maspas = request.form.get('maspas')
 
-        print(get_key())
         if get_key() in ('0', 0):
             k = sha512(''.join(maspas).encode('utf-8')).hexdigest()
             update_key(k)
@@ -93,8 +92,7 @@ def inputkey():
         gkey = k
         make_a_table(gkey)
 
-        return redirect("http://127.0.0.1:5000/data")
-    print(get_key())    
+        return redirect("http://127.0.0.1:5000/data")    
     if get_key() in ('0', 0):
         return render_template('inputform.html', key="first")
     else:

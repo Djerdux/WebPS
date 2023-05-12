@@ -19,8 +19,7 @@ cur.execute("""CREATE TABLE IF NOT EXISTS maspass (
 """)
 con.commit()
 
-cur.execute("""INSERT OR IGNORE INTO maspass values (0) """)
-con.commit()
+
 
 
 
@@ -81,6 +80,10 @@ def update_key(data):
      cur.execute(f"UPDATE maspass SET key='{data}'")
      con.commit()
      print('commited')
+
+if get_key() == []:
+    cur.execute("""INSERT OR IGNORE INTO maspass values (0) """)
+    con.commit()
 
 # uniques = [r[0] for r in get_unique()]
 
